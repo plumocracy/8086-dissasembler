@@ -4,12 +4,17 @@ series [computer enhance](https://computerenhance.com).
 
 ## Requirements
 1. An assembler - I am using [nasm](https://www.nasm.us/).
-2. Make
-3. C++ compiler - the default is clang.
+2. C++ compiler - the default is clang.
+3. Make
+4. CMake
 
 This is intended to be compiled with C++ 17 or greater.
 
 ### Optional
+
+If you want to generate `compile_commands.json` you must have bear installed.
+`brew install bear`. Then run `make compile_commands`
+ 
 A .vscode directory exists to debug the program using it, you can use any 
 debugger you want though.
 

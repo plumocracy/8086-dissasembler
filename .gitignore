@@ -1,2 +1,4 @@
 *.dSYM/
 build/
+asm/
+compile_commands.json
