@@ -1,6 +1,6 @@
 # 8086 dissasembler
 This is a project that I am working on along-side the video
-series [https://computerenhance.com](computer enhance). 
+series [computer enhance](https://computerenhance.com). 
 
 ## Requirements
 1. An assembler
