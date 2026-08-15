@@ -8,25 +8,34 @@
 #include "BitUtils.hpp"
 #include "Mov.hpp"
 #include "Test.hpp"
+#include "Args.hpp"
 
 #define DOCTEST
 
-int main(int argc, char** argv) {
+int main(int argc, char* argv[]) {
 	
-	if (argc == 1) {
+	Args args(argc, argv);
+	
+	if (!args.Healthy()) {
+		std::cout << 
+			"No file!\n" <<
+			"usage: decoder <filename> or deocoder --test" <<
+			std::endl;
+		exit(1);
+	}
+
+	
+	if (args.ShouldTestProgram()) {
 		std::unique_ptr<Test::TestResult> r = Test::Run();
 		exit(r->EnumerateResults());	
 	}
 
-	std::string fileName;
-	if (!std::filesystem::exists(argv[1])) {
-		std::cout << "File " << argv[1] << " doesn't exist!" << std::endl;
+	if (!std::filesystem::exists(args.FileName())) {
+		std::cout << "File " << args.FileName() << " doesn't exist!" << std::endl;
 		return 0;
-	} else {
-		fileName = std::string(argv[1]);
-	}
+	} 
 
-	std::ifstream file(fileName, std::ios::binary | std::ios::ate);
+	std::ifstream file(args.FileName(), std::ios::binary | std::ios::ate);
 
 	if (!file.is_open()) {
 		std::cout << "Failed to open the file." << std::endl;

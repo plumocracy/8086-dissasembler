@@ -6,7 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/build/decoder",
-            "args": ["${workspaceFolder}/sr"],
+            "args": ["${workspaceFolder}/--test"],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
             "MIMode": "lldb",

@@ -2,7 +2,7 @@ CC = clang++
 FLAGS=
 BUILD_DIR = build
 STD = 23
-SRC = src/main.cpp src/OpParser.cpp src/BitUtils.cpp src/Mov.cpp
+SRC = src/main.cpp src/OpParser.cpp src/BitUtils.cpp src/Mov.cpp src/Args.cpp
 
 # Assembly File to make with nasm
 AFILE=asm-test-files/mr
@@ -18,7 +18,7 @@ asm:
 	mkdir -p $(ASM_DIR)
 	nasm $(AFILE) -o $(ASM_DIR)/assembled
 
-compile_commands:
+withdb:
 	bear -- make
 
 .PHONY: asm clean
