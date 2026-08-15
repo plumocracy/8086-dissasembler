@@ -8,6 +8,9 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v5
 
-      - name: build-and-test
+      - name: build
         run: make
-        run: build/decoder
+
+      - name: test
+        run: ./build/decoder
+
