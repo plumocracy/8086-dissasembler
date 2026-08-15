@@ -50,16 +50,16 @@ namespace Test {
 					}
 
 					std::cout << "[" << i << "] " << static_cast<char>(status[i]) 
-						<< ": " << names[i] << "\n\t";
+						<< ": " << names[i];
 
 					if (status[i] == Status::FAIL) {
-						std::cout << "\033[3m"<<message[i];
+						std::cout << "\n\t" <<" \033[3m"<<message[i];
 					}
 
-					std::cout << "\033[0m\n";
+					if ((i + 1) != count) {
+						std::cout << "\n";
+					}
 				}
-
-				std::cout << std::endl;	
 
 				if (fail) {
 					return 1;
