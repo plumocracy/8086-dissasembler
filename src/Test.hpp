@@ -3,8 +3,17 @@
 #include <vector>
 #include <iostream>
 
+// TODO:(plum) Turn this into a harness/result model.
+// You can create a new result in any file and it will
+// register itself with the harness (debug only).
+// the harness will the execute all of the result runs and
+// find the result of the tests that way.
+
+#ifndef TEST	
+	#define TEST(harness_ptr, cond, msg) (harness_ptr)->test(cond, #cond, msg)
+#endif
+
 namespace Test {
-	
 	class TestResult {
 		public:
 			enum class Status : char {
@@ -18,7 +27,7 @@ namespace Test {
 			std::vector<std::string> 	 message{};	
 			std::vector<std::string> 	 names{};	
 
-			void TEST(bool condition, const char* name, const char* msg) {
+			void test(bool condition, const char* name, const char* msg) {
 				this->message.emplace_back(msg);
 				this->names.emplace_back(name);
 				if (condition) {
@@ -28,37 +37,39 @@ namespace Test {
 				}
 				this->count++;
 			}
+			
 
-			int EnumerateResults(bool with_success = true) {
+			int EnumerateResults() {
 				std::cout << "Running " << count << " tests." << std::endl;
 				std::cout << "------------------" << std::endl;
 
 				bool fail = false;
 
 				for (int i = 0; i < count; i++) {
-					if (!with_success && status[i] == Status::PASS) {
-						continue;
+					// These escape codes set colors, green for pass, red for fail,
+					// white for everything else.
+					constexpr const char* RED = "\033[31m";
+					constexpr const char* GREEN = "\033[32m";
+					constexpr const char* WHITE = "\033[37m";
+
+					constexpr const char* ITALIC = "\033[37m";
+
+
+					switch(status[i]) {
+						case Status::PASS: { std::cout << GREEN; break; }
+	 					case Status::FAIL: { fail = true; std::cout << RED; break; }
+						default: std::cout << "\033[37m";
 					}
 
-					if (status[i] == Status::PASS) {
-						std::cout << "\033[32m";
-					} else if (status[i] == Status::FAIL) {
-						fail = true;
-						std::cout << "\033[31m";
-					} else {
-						std::cout << "\033[37m";
-					}
+					std::string end = status[i] == 
+						Status::FAIL ? std::string("\n\t\033[3m" + message[i]) : "";
 
-					std::cout << "[" << i << "] " << static_cast<char>(status[i]) 
-						<< ": " << names[i];
-
-					if (status[i] == Status::FAIL) {
-						std::cout << "\n\t" <<" \033[3m"<<message[i];
-					}
-
-					if ((i + 1) != count) {
-						std::cout << "\n";
-					}
+					std::cout 
+						<< "[" << i << "] " 
+						<< static_cast<char>(status[i]) << ": " 
+						<< names[i] << end;
+					
+					if (i + 1 != count) std::cout << "\n";
 				}
 
 				if (fail) {
@@ -71,8 +82,7 @@ namespace Test {
 
 	std::unique_ptr<TestResult> Run() {
 		std::unique_ptr<TestResult> harness = std::make_unique<TestResult>();		
-		harness->TEST(1 != 2, "One doesnt equal two", "One equals two!");
-		//harness->TEST(1 == 2, "One equals two", "One does not equal two!");
+		TEST(harness, 1 != 2, "One does not equal two!");
 		return harness;
 	};	
 }
