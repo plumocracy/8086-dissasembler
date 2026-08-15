@@ -1,4 +1,4 @@
-name: GitHub Actions Demo
+name: Test Program
 run-name: test
 on: [push]
 jobs:

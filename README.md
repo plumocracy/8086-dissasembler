@@ -27,3 +27,6 @@ just running `make` should do you just fine. The available make macros are
 `BUILD_DIR` - The directory to build to, default `build`. If different from default this must be set when you run `clean`.<br>
 `STD` - The C++ standard you'd like to compile to, default `17`<br>
 
+## Testing
+Currently running the program with no file argument will run the test suite.
+This will be changed imminently. 
