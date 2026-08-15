@@ -5,7 +5,7 @@
             "name": "(lldb) Launch decoder",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/a.out",
+            "program": "${workspaceFolder}/build/decoder",
             "args": ["${workspaceFolder}/sr"],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
@@ -16,7 +16,7 @@
             "name": "(lldb) Attach",
             "type": "cppdbg",
             "request": "attach",
-            "program": "${workspaceFolder}/a.out",
+            "program": "${workspaceFolder}/build/decoder",
             "MIMode": "lldb"
         }
     ]

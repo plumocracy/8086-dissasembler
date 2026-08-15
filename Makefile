@@ -9,7 +9,7 @@ AFILE=asm-test-files/mr
 ASM_DIR=asm
 
 default: $(BUILD_DIR)
-	$(CC) $(SRC) -o $(BUILD_DIR)/decoder --std=c++$(STD) $(FLAGS)
+	$(CC) -g $(SRC) -o $(BUILD_DIR)/decoder --std=c++$(STD) $(FLAGS)
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)

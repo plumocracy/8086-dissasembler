@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 #include <vector>
 
 #include <fstream>
@@ -6,13 +7,15 @@
 
 #include "BitUtils.hpp"
 #include "Mov.hpp"
+#include "Test.hpp"
 
 #define DOCTEST
 
 int main(int argc, char** argv) {
+	
 	if (argc == 1) {
-		std::cout << "Please pass file!" << std::endl;
-		return 0;
+		std::unique_ptr<Test::TestResult> r = Test::Run();
+		exit(r->EnumerateResults());	
 	}
 
 	std::string fileName;

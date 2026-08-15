@@ -1,0 +1,13 @@
+name: GitHub Actions Demo
+run-name: test
+on: [push]
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v5
+
+      - name: build-and-test
+        run: make
+        run: build/decoder
