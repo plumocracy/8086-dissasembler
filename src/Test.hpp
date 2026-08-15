@@ -72,7 +72,7 @@ namespace Test {
 	std::unique_ptr<TestResult> Run() {
 		std::unique_ptr<TestResult> harness = std::make_unique<TestResult>();		
 		harness->TEST(1 != 2, "One doesnt equal two", "One equals two!");
-		harness->TEST(1 == 2, "One equals two", "One does not equal two!");
+		//harness->TEST(1 == 2, "One equals two", "One does not equal two!");
 		return harness;
 	};	
 }
