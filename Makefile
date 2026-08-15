@@ -18,6 +18,9 @@ asm:
 	mkdir -p $(ASM_DIR)
 	nasm $(AFILE) -o $(ASM_DIR)/assembled
 
+compile_commands:
+	bear -- make
+
 .PHONY: asm clean
 
 clean:
