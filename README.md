@@ -28,5 +28,6 @@ just running `make` should do you just fine. The available make macros are
 `STD` - The C++ standard you'd like to compile to, default `17`<br>
 
 ## Testing
-Currently running the program with no file argument will run the test suite.
-This will be changed imminently. 
+This project uses a custom unit test suite that is unifinished. Do not try and add more tests for now.<br>
+<br>
+To test the program, build it and run `decoder --test`

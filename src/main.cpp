@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
 	if (!args.Healthy()) {
 		std::cout << 
 			"No file!\n" <<
-			"usage: decoder <filename> or deocoder --test" <<
+			"usage:\n\tdecoder <filename> to decompile.\n\tdecoder --test" <<
 			std::endl;
 		exit(1);
 	}
