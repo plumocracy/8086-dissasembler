@@ -5,7 +5,7 @@ STD = 23
 SRC = src/main.cpp src/OpParser.cpp src/BitUtils.cpp src/Mov.cpp src/Args.cpp
 
 # Assembly File to make with nasm
-AFILE=asm-test-files/mr
+AFILE=asm-test-files/mr.asm
 ASM_DIR=asm
 
 default: $(BUILD_DIR)

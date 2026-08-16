@@ -5,12 +5,12 @@
 
 namespace op {
 
-class OpParser {
-	OpParser(std::byte byte);
-	~OpParser();
+class Parser {
+	Parser(std::byte byte);
+	~Parser();
 	
-	OpParser(const OpParser& other) = delete;
-	OpParser(const OpParser&& other) noexcept = delete;
+	Parser(const Parser& other) = delete;
+	Parser(const Parser&& other) noexcept = delete;
 	
 	enum class OpCode: int {
 		COULD_NOT_PARSE = -1,

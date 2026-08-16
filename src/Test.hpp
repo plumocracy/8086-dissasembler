@@ -1,7 +1,14 @@
 #pragma once
+
+// TODO: Release Guard
+
+
+#include <bitset>
 #include <memory>
 #include <vector>
 #include <iostream>
+
+#include "BitUtils.hpp"
 
 // TODO:(plum) Turn this into a harness/result model.
 // You can create a new result in any file and it will
@@ -10,7 +17,7 @@
 // find the result of the tests that way.
 
 #ifndef TEST	
-	#define TEST(harness_ptr, cond, msg) (harness_ptr)->test(cond, #cond, msg)
+	#define TEST(harness_ptr, cond, msg) (harness_ptr)->test(cond, #cond, msg, __FILE__, __LINE__)
 #endif
 
 namespace Test {
@@ -24,12 +31,19 @@ namespace Test {
 			
 			long long count = 0;
 			std::vector<Status>        status{};
-			std::vector<std::string> 	 message{};	
-			std::vector<std::string> 	 names{};	
+			std::vector<std::string> 	 messages{};	
+			std::vector<std::string> 	 conditions{};	
+			std::vector<std::string>   fileNames{};
+			std::vector<int>           lineNumbers{};
 
-			void test(bool condition, const char* name, const char* msg) {
-				this->message.emplace_back(msg);
-				this->names.emplace_back(name);
+
+			void test(
+					bool condition, const char* name, std::string msg, const char* fileName, int lineNumber) 
+			{
+				this->messages.emplace_back(msg);
+				this->conditions.emplace_back(name);
+				this->fileNames.emplace_back(fileName);
+				this->lineNumbers.emplace_back(lineNumber);
 				if (condition) {
 					this->status.emplace_back(Status::PASS);
 				} else {
@@ -62,12 +76,14 @@ namespace Test {
 					}
 
 					std::string end = status[i] == 
-						Status::FAIL ? std::string("\n\t\033[3m" + message[i]) : "";
+						Status::FAIL ? 
+							std::string("\n\t\033[37m" + std::string(messages[i])) 
+						: "";
 
 					std::cout 
 						<< "[" << i << "] " 
-						<< static_cast<char>(status[i]) << ": " 
-						<< names[i] << end;
+						<< static_cast<char>(status[i]) << " at " << fileNames[i] << ":" << lineNumbers[i] << ": " 
+						<< conditions[i] << end;
 					
 					if (i + 1 != count) std::cout << "\n";
 				}
@@ -81,8 +97,17 @@ namespace Test {
 	};
 
 	std::unique_ptr<TestResult> Run() {
-		std::unique_ptr<TestResult> harness = std::make_unique<TestResult>();		
-		TEST(harness, 1 != 2, "One does not equal two!");
+		std::unique_ptr<TestResult> harness = std::make_unique<TestResult>();
+		
+		char x = 0b10000000;
+		char y = 0b00101000;
+		char z = 0b00000101;
+
+		TEST(harness, bu::bitSpan(x, 7, 6) == 0b00000010, "");
+		TEST(harness, bu::bitSpan(y, 5, 3) == 0b00000101, "");
+		TEST(harness, bu::bitSpan(z, 2, 0) == 0b00000101, "");
+
+
 		return harness;
 	};	
 }

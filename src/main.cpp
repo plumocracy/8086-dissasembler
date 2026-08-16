@@ -1,3 +1,4 @@
+#include <bitset>
 #include <iostream>
 #include <memory>
 #include <vector>
@@ -50,7 +51,7 @@ int main(int argc, char* argv[]) {
 	// Return file pointer the beginning of file.
 	file.seekg(0);
 
-	std::vector<u8> buffer(size);
+	std::vector<char> buffer(size);
 
 	std::vector<ops::Mov> ops {};
 

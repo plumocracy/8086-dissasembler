@@ -3,7 +3,7 @@
 #include <cstdlib>
 
 namespace op {
-	OpParser::OpParser(std::byte byte): 
+	Parser::Parser(std::byte byte): 
 		byte(byte) 
 	{
 		ParseOpCode();
@@ -14,10 +14,10 @@ namespace op {
 		}
 	}
 
-	OpParser::OpCode OpParser::GetOpCode() noexcept {
+	Parser::OpCode Parser::GetOpCode() noexcept {
 		return this->opCode;
 	}
 
-	void OpParser::ParseOpCode() {
+	void Parser::ParseOpCode() {
 	}
 }

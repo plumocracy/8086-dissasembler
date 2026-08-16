@@ -40,21 +40,21 @@ std::string Mov::ReconstructAsm() {
 
 void Mov::DecodeLow() {
 	// This is the move opcode, if it doesnt equal this we're not able to handle it.
-	assert(bu::bitSpan(low, 0, 5) == 0b00100010);
+	assert(bu::bitSpan(low, 7, 2) == 0b00100010);
 
-	wide = static_cast<bool>(bu::bitSpan(low, 7, 7));
-	direction = static_cast<Direction>(bu::bitSpan(low, 6, 7));
+	wide = static_cast<bool>(bu::bitSpan(low, 0, 0));
+	direction = static_cast<Direction>(bu::bitSpan(low, 1, 0));
 }
 
 void Mov::DecodeHigh() {
 	// Mod - First 2 bits
-	mode = static_cast<MemMode>(bu::bitSpan(high, 0, 1));
+	mode = static_cast<MemMode>(bu::bitSpan(high, 7, 6));
 
 	// Reg - Middle 3 bits
-	u8 reg = bu::bitSpan(high, 2, 4);
+	u8 reg = bu::bitSpan(high, 5, 3);
 
 	// R/M - Last 3 bits
-	u8 r_or_m = bu::bitSpan(high, 5, 7);
+	u8 r_or_m = bu::bitSpan(high, 2, 0);
 
 	// NOTE:(plum) This is a special case for 8086. 110 in r/m always sets mem
 	// mode to 16 bit displacement.
